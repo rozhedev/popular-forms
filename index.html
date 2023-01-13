@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popular forms</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="signup">
+        <div class="signup__header">
+            <h2 class="signup__header-title">Register</h2>
+        </div>
+
+        <!-- action="dashboard.php" -->
+        <form action="" id="signup-form" class="signup__form">
+            <div class="signup__form-control">
+                <label for="signup-fullname" class="signup__form-label">Fullname</label>
+                <input type="text" placeholder="John Smith" class="signup__form-inp" id="signup-fullname">
+                <small class="signup__form-message">Error message</small>
+                <i class="fas fa-check signup__form-success"></i>
+                <i class="fas fa-times signup__form-error"></i>
+            </div>
+
+            <div class="signup__form-control">
+                <label for="signup-username" class="signup__form-label">Username</label>
+                <input type="text" placeholder="john123" class="signup__form-inp" id="signup-username">
+                <small class="signup__form-message">Error message</small>
+                <i class="fas fa-check signup__form-success"></i>
+                <i class="fas fa-times signup__form-error"></i>
+            </div>
+
+            <div class="signup__form-control">
+                <label for="signup-email" class="signup__form-label">Email</label>
+                <input type="email" placeholder="john@email.com" class="signup__form-inp" id="signup-email">
+                <small class="signup__form-message">Error message</small>
+                <i class="fas fa-check signup__form-success"></i>
+                <i class="fas fa-times signup__form-error"></i>
+            </div>
+
+            <div class="signup__form-control">
+                <label for="signup-password" class="signup__form-label">Password</label>
+                <div class="signup__form-info">
+                    <i class="fas fa-info-circle signup__form-icon"></i>
+                    <span class="signup__form-text">
+                        Password must be at least 8 char. long and contain uppercase letters and numbers
+                    </span>
+                </div>
+                <input type="password" placeholder="Password" class="signup__form-inp" id="signup-password">
+                <label for="signup-password" class="signup__trigger _show signup__trigger--pos-top">
+                    <i class="far fa-eye signup__trigger-show"></i>
+                    <i class="fas fa-eye-slash signup__trigger-hide"></i>
+                </label>
+                <small class="signup__form-message">Error message</small>
+            </div>
+
+            <div class="signup__form-control">
+                <label for="signup-password2" class="signup__form-label">Confirm password</label>
+                <input type="password" placeholder="Confirm password" class="signup__form-inp" id="signup-password2">
+                <label for="signup-password2" class="signup__trigger _show">
+                    <i class="far fa-eye signup__trigger-show"></i>
+                    <i class="fas fa-eye-slash signup__trigger-hide"></i>
+                </label>
+                <small class="signup__form-message">Error message</small>
+            </div>
+
+            <div class="signup__form-control">
+                <div class="signup__captcha captcha">
+                    <div class="captcha__area">
+                        <div class="captcha__area-inner">
+<!--                             <img src="img/bg6.png" class="captcha__area-img" alt="bg6"> -->
+                            <span class="captcha__area-text" id="signup-captcha-text"></span>
+                        </div>
+                        <button class="captcha__reload-btn btn" id="signup-reload-btn">
+                            <i class="fas fa-redo-alt"></i>
+                        </button>
+                    </div>
+
+                    <div class="captcha__form">
+                        <label for="signup-captcha-inp" class="signup__form-label">* Enter without spaces</label>
+                        <input type="text" name="signup-captcha" id="signup-captcha-inp"
+                            class="captcha__form-inp signup__form-inp" placeholder="Enter captcha" maxlength="6">
+                    </div>
+                    <small class="captcha__status" id="signup-captcha-status">Error message</small>
+                </div>
+            </div>
+
+            <div class="signup__form-control signup__form-control--chekbox">
+                <input type="checkbox" placeholder="Confirm password" class="signup__form-checkbox"
+                    id="signup-checkbox">
+                <label for="signup-checkbox" class="signup__form-terms">I agree with <a href="#">Terms of
+                        Use</a></label>
+                <small class="signup__form-message">Error message</small>
+            </div>
+            <button class="signup__form-btn btn">Register</button>
+        </form>
+    </div>
+
+    <!-- LOGIN -->
+
+    <div class="signup">
+        <div class="signup__header">
+            <h2 class="signup__header-title">Log in</h2>
+        </div>
+
+        <!-- action="dashboard.php" -->
+        <form action="" id="login-form" class="signup__form">
+            <div class="signup__form-control">
+                <label for="login-username" class="signup__form-label">Username</label>
+                <input type="text" placeholder="Your username" class="signup__form-inp login__form-inp"
+                    id="login-username">
+                <small class="signup__form-message">Error message</small>
+                <i class="fas fa-check signup__form-success"></i>
+                <i class="fas fa-times signup__form-error"></i>
+            </div>
+
+            <div class="signup__form-control">
+                <label for="login-password" class="signup__form-label">Password</label>
+                <input type="password" placeholder="Password" class="captcha__form-inp signup__form-inp"
+                    id="login-password">
+                <label for="login-password" class="signup__trigger _show">
+                    <i class="far fa-eye signup__trigger-show"></i>
+                    <i class="fas fa-eye-slash signup__trigger-hide"></i>
+                </label>
+                <small class="signup__form-message">Error message</small>
+            </div>
+
+            <div class="signup__form-control">
+                <div class="signup__captcha captcha">
+                    <div class="captcha__area">
+                        <div class="captcha__area-inner">
+                        <!--  Background for captcha   -->
+<!--                             <img src="img/bg6.png" class="captcha__area-img" alt="bg6"> -->
+                            <span class="captcha__area-text" id="login-captcha-text"></span>
+                        </div>
+                        <button class="captcha__reload-btn btn" id="login-reload-btn">
+                            <i class="fas fa-redo-alt"></i>
+                        </button>
+                    </div>
+
+                    <div class="captcha__form">
+                        <label for="login-captcha-inp" class="signup__form-label">* Enter without spaces</label>
+                        <input type="text" name="login-captcha" id="login-captcha-inp"
+                            class="captcha__form-inp signup__form-inp" placeholder="Enter captcha" maxlength="6">
+                    </div>
+                    <small class="captcha__status" id="login-captcha-status">Error message</small>
+                </div>
+            </div>
+            <button class="signup__form-btn btn">Log in</button>
+        </form>
+    </div>
+
+    <!-- RECOVER PASS -->
+
+    <div class="signup">
+        <div class="signup__header">
+            <h2 class="signup__header-title">Recover password</h2>
+        </div>
+
+        <!-- action="reset-pass.php" -->
+        <form action="" id="reset-form" class="signup__form">
+            <div class="signup__form-control">
+                <label for="email-reset" class="signup__form-label">Email</label>
+                <input type="email" placeholder="john@email.com" class="signup__form-inp" id="reset-email">
+                <small class="signup__form-message">Error message</small>
+                <i class="fas fa-check signup__form-success"></i>
+                <i class="fas fa-times signup__form-error"></i>
+            </div>
+            <button class="signup__form-btn btn">Reset password</button>
+        </form>
+    </div>
+
+    <script src="https://kit.fontawesome.com/f77f4500aa.js" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

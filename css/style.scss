@@ -1,0 +1,305 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Zen+Antique&display=swap");
+
+$accent: #655faf;
+$errorRed: #912a10;
+$successGreen: #0e833b;
+$dark: #111;
+$light: #f9f9f9;
+
+$transition: 0.6s all;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+}
+
+body {
+    background-color: $accent;
+    font-family: "Open Sans", sans-serif;
+    min-height: 100vh;
+}
+
+.btn {
+    display: block;
+    cursor: pointer;
+    background-color: $accent;
+    border: 2px solid $accent;
+    border-radius: 8px;
+    color: $light;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    font-weight: bold;
+    padding: 10px;
+    margin-top: 20px;
+    width: 100%;
+    transition: $transition;
+
+    &:hover {
+        background-color: $light;
+        color: $accent;
+    }
+}
+
+// * SIGNUP
+
+.signup {
+    background-color: $light;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(17, 17, 17, 0.3);
+    overflow: hidden;
+    width: 400px;
+    max-width: 100%;
+    margin: 40px auto;
+
+    &__header {
+        border-bottom: 1px solid $dark;
+        background-color: #fff;
+        padding: 20px 40px;
+    }
+
+    &__form {
+        padding: 30px 40px;
+        max-width: 700px;
+
+        // * FORM CONTROL
+
+        &-control {
+            margin-bottom: 10px;
+            padding-bottom: 18px;
+            position: relative;
+
+            &._success {
+                transition: $transition;
+                .signup__form-inp {
+                    border-color: $successGreen;
+                }
+                .signup__form-success {
+                    visibility: visible;
+                    opacity: 1;
+                }
+            }
+            &._error {
+                .signup__form-inp {
+                    border-color: $errorRed;
+                }
+                .signup__form-message {
+                    visibility: visible;
+                }
+                .signup__form-error {
+                    visibility: visible;
+                    opacity: 1;
+                }
+            }
+            &--checkbox {
+                margin-bottom: 0;
+            }
+        }
+
+        &-label {
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+        &-inp {
+            border: 2px solid #f0f0f0;
+            border-radius: 4px;
+            display: block;
+            font-family: inherit;
+            font-size: 14px;
+            padding: 10px;
+            width: 100%;
+            transition: $transition;
+
+            &:focus {
+                outline: 0;
+                border-color: $accent;
+            }
+        }
+        &-message {
+            display: block;
+            font-size: 13px;
+            color: $errorRed;
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            visibility: hidden;
+        }
+        &-message.error {
+            visibility: visible;
+        }
+        &-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 8px 12px;
+            margin: 4px 0 12px;
+            font-size: 14px;
+            letter-spacing: 0.02em;
+            background-color: $accent;
+            color: $light;
+            border-radius: 8px;
+        }
+        &-icon {
+            font-size: 40px;
+            margin-right: 12px;
+        }
+        &-checkbox {
+            margin-right: 4px;
+        }
+        &-success,
+        &-error {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            top: 38px;
+            right: 16px;
+            font-size: 20px;
+            transition: $transition;
+        }
+        &-success {
+            color: $successGreen;
+        }
+        &-error {
+            color: $errorRed;
+        }
+    }
+    &__trigger {
+        position: absolute;
+        top: 35px;
+        right: 12px;
+        min-width: 32px;
+        padding: 2px;
+        z-index: 5;
+
+        text-align: center;
+        font-size: 14px;
+        cursor: pointer;
+        background-color: $accent;
+        border: 2px solid $accent;
+        border-radius: 8px;
+        color: $light;
+        display: block;
+        transition: $transition;
+
+        &--pos-top {
+            top: 124px;
+        }
+
+        &-show,
+        &-hide {
+            color: $light;
+        }
+
+        &._show {
+            .signup__trigger-show {
+                visibility: hidden;
+                display: none;
+            }
+            .signup__trigger-hide {
+                visibility: visible;
+                display: inline;
+            }
+        }
+        &._hide {
+            .signup__trigger-show {
+                visibility: visible;
+                display: inline;
+            }
+            .signup__trigger-hide {
+                visibility: hidden;
+                display: none;
+            }
+        }
+    }
+
+    // * CAPTCHA
+
+    .captcha {
+        &__area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+
+            &-inner {
+                height: 100%;
+                width: 100%;
+                position: relative;
+                user-select: none;
+              // Background for captcha
+                background-color: $dark;
+                border-radius: 8px;
+            }
+            &-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 8px;
+
+            }
+            &-text {
+                position: absolute;
+                left: 2%;
+                top: 8%;
+                width: 100%;
+                color: $light;
+                text-align: center;
+                font-size: 30px;
+                font-family: "Zen Antique", serif;
+                font-style: italic;
+                letter-spacing: 0.56em;
+                text-shadow: 0 0 2px $dark;
+            }
+        }
+        &__reload-btn {
+            margin: 0 0 0 8px;
+            padding: 6px;
+            width: 64px;
+            height: 100%;
+            font-size: 24px;
+
+            &:hover {
+                color: $light;
+                background-color: $accent;
+            }
+            i {
+                transition: $transition;
+                &:hover {
+                    transform: rotate(25deg);
+                }
+            }
+        }
+        &__form {
+            margin-top: 14px;
+            position: relative;
+
+            &-inp {
+                &._success {
+                    border-color: $successGreen;
+                }
+                &._error {
+                    border-color: $errorRed;
+                }
+            }
+        }
+        &__status {
+            display: block;
+            overflow: hidden;
+            opacity: 0;
+
+            &._success {
+                color: $successGreen;
+                overflow: visible;
+                opacity: 1;
+            }
+            &._error {
+                color: $errorRed;
+                overflow: visible;
+                opacity: 1;
+            }
+        }
+    }
+}
