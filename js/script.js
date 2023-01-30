@@ -1,43 +1,66 @@
-import RandExp from "https://cdn.skypack.dev/randexp";
+// * NODES
 
-// * SIGNUP
+const SIGNUP_NODES = {
+    form: document.getElementById('signup-form'),
+    inputs: document.querySelectorAll('.signup__form-inp'),
+    fullname: document.getElementById('signup-fullname'),
+    username: document.getElementById('signup-username'),
+    email: document.getElementById('signup-email'),
+    password: document.getElementById('signup-password'),
+    repeatPassword: document.getElementById('signup-password2'),
+    checkbox: document.getElementById('signup-checkbox'),
+    triggers: document.querySelectorAll('.signup__trigger'),        // * Buttons for view/hide password
 
-const signupForm = document.getElementById('signup-form');
-const signupFullname = document.getElementById('signup-fullname');
-const signupUsername = document.getElementById('signup-username');
-const signupEmail = document.getElementById('signup-email');
-const signupPassword = document.getElementById('signup-password');
-const signupPassword2 = document.getElementById('signup-password2');
-const signupCheckbox = document.getElementById('signup-checkbox');
-const signupInputs = document.querySelectorAll('.signup__form-inp');
-const triggerBtns = document.querySelectorAll('.signup__trigger');
+    captchaText: document.getElementById('signup-captcha-text'),
+    reloadBtn: document.getElementById('signup-reload-btn'),
+    captchaInp: document.getElementById('signup-captcha-inp'),
+    statusText: document.getElementById('signup-captcha-status'),
+}
 
-// * SIGNUP CAPTCHA
-
-const signupCaptchaText = document.getElementById('signup-captcha-text');
-const signupReloadBtn = document.getElementById('signup-reload-btn');
-const signupCaptchaInp = document.getElementById('signup-captcha-inp');
-const signupStatusText = document.getElementById('signup-captcha-status');
-
-// * LOGIN
-
-const loginForm = document.getElementById('login-form');
-const loginUsername = document.getElementById('login-username');
-const loginPassword = document.getElementById('login-password');
-const loginInputs = document.querySelectorAll('.login__form-inp');
-
-// * LOGIN CAPTCHA
-
-const loginCaptchaText = document.getElementById('login-captcha-text');
-const loginReloadBtn = document.getElementById('login-reload-btn');
-const loginCaptchaInp = document.getElementById('login-captcha-inp');
-const loginStatusText = document.getElementById('login-captcha-status');
+const LOGIN_NODES = {
+    form: document.getElementById('login-form'),
+    inputs: document.querySelectorAll('.login__form-inp'),
+    username: document.getElementById('login-username'),
+    password: document.getElementById('login-password'),
+    captchaText: document.getElementById('login-captcha-text'),
+    reloadBtn: document.getElementById('login-reload-btn'),
+    captchaInp: document.getElementById('login-captcha-inp'),
+    statusText: document.getElementById('login-captcha-status'),
+}
 
 // * RESET FORM
+const RESET_NODES = {
+    form: document.getElementById('reset-form'),
+    email: document.getElementById('reset-email'),
+}
 
-const resetForm = document.getElementById('reset-form');
-const resetEmail = document.getElementById('reset-email');
-// const reInputs = document.querySelectorAll('.login__form-inp');
+const TEXT_ERRORS = {
+    blankFullname: "Fullname cannot be blank",
+    invalidFullname: "Invalid fullname",
+    blankUsername: "Username cannot be blank",
+    invalidCharsUsername: "Username must be consist of (0-9), ( _ ) and (a-z)",
+    lenghtUsername: "Username must be longer than 5 and less than 20",
+    emailBlank: "Email cannot be blank",
+    invalidEmail: "Invalid email",
+
+    blankPass: "Password cannot be blank",
+    unsafePass: "Password doesn't meet security requirements",
+    blankRepeatPass: "Confirm password cannot be blank",
+    passNotMatch: "Passwords doesn't match",
+    blankCaptcha: "Captcha cannot be blank",
+    completeCaptcha: "Nice! You don't appear to the robot.",
+    captchaNotMatch: "Captcha not matched. Please try again!",
+    notChecked: "You must agree to the terms",
+}
+
+const STATE_LIST = {
+    error: "_error",
+    success: "_success",
+    hide: "_hide",
+    show: "_show",
+}
+
+let validInterval = 5000;
 
 // * RegEx
 
@@ -62,64 +85,48 @@ function isPassword(password) {
 function checkFullname(fullname) {
     const fullnameValue = fullname.value.trim();
 
-    if (fullnameValue === '') {
-        setErrorFor(fullname, 'Fullname cannot be blank');
-    } else if (!isFullname(fullnameValue)) {
-        setErrorFor(fullname, 'Incorrect fullname');
-    } else {
-        setSuccessFor(fullname);
-    }
+    if (fullnameValue === '') setErrorFor(fullname, TEXT_ERRORS.blankFullname);
+    else if (!isFullname(fullnameValue)) setErrorFor(fullname, TEXT_ERRORS.invalidFullname);
+    else setSuccessFor(fullname);
 }
 
 function checkUsername(username) {
     const usernameValue = username.value.trim();
+    let minUserLength = 5;
+    let maxUserLenth = 20;
 
-    if (usernameValue === '') {
-        setErrorFor(username, 'Username cannot be blank');
-    } else if (!isUsername(usernameValue)) {
-        setErrorFor(username, 'Username must be consist of (0-9), ( _ ) and (a-z)');
-    } else if (usernameValue.length < 5 || usernameValue.length > 20) {
-        setErrorFor(username, 'Username must be longer than 5 and less than 20');
-    } else {
-        setSuccessFor(username);
-    }
+    if (usernameValue === '') setErrorFor(username, TEXT_ERRORS.blankUsername);
+    else if (!isUsername(usernameValue)) setErrorFor(username, TEXT_ERRORS.invalidCharsUsername);
+    else if (
+        usernameValue.length < minUserLength ||
+        usernameValue.length > maxUserLenth
+    ) setErrorFor(username, TEXT_ERRORS.lenghtUsername);
+    else setSuccessFor(username);
 }
 
 function checkEmail(email) {
     const emailValue = email.value.trim();
 
-    if (emailValue === '') {
-        setErrorFor(email, 'Email cannot be blank');
-    } else if (!isEmail(emailValue)) {
-        setErrorFor(email, 'Not a valid email');
-    } else {
-        setSuccessFor(email);
-    }
+    if (emailValue === '') setErrorFor(email, TEXT_ERRORS.emailBlank);
+    else if (!isEmail(emailValue)) setErrorFor(email, TEXT_ERRORS.invalidEmail);
+    else setSuccessFor(email);
 }
 
 function checkPassword(password) {
     const passwordValue = password.value.trim();
 
-    if (passwordValue === '') {
-        setErrorFor(password, 'Password cannot be blank');
-    } else if (!isPassword(passwordValue)) {
-        setErrorFor(password, 'Password does not meet security requirements');
-    } else {
-        setSuccessFor(password);
-    }
+    if (passwordValue === '') setErrorFor(password, TEXT_ERRORS.blankPass);
+    else if (!isPassword(passwordValue)) setErrorFor(password, TEXT_ERRORS.unsafePass);
+    else setSuccessFor(password);
 }
 
-function comparePassword(password, password2) {
+function comparePassword(password, repeatPassword) {
     const passwordValue = password.value.trim();
-    const password2Value = password2.value.trim();
+    const repeatPasswordValue = repeatPassword.value.trim();
 
-    if (passwordValue == '') {
-        setErrorFor(password2, 'Confirm password cannot be blank');
-    } else if (passwordValue !== password2Value) {
-        setErrorFor(password2, 'Passwords does not match');
-    } else {
-        setSuccessFor(password2);
-    }
+    if (passwordValue == '') setErrorFor(repeatPassword, TEXT_ERRORS.blankRepeatPass);
+    else if (passwordValue !== repeatPasswordValue) setErrorFor(repeatPassword, TEXT_ERRORS.passNotMatch);
+    else setSuccessFor(repeatPassword);
 }
 
 // * CAPTCHA FUNCTIONS
@@ -143,204 +150,201 @@ function checkCaptcha(captchaInp, captchaText, statusText) {
     const captchaValue = captchaInp.value;
 
     if (captchaValue == '') {
-        statusText.classList.add('_error');
-        statusText.classList.remove('_success');
+        statusText.classList.add(STATE_LIST.error);
+        statusText.classList.remove(STATE_LIST.success);
 
-        captchaInp.classList.add('_error');
-        captchaInp.classList.remove('_success');
-        statusText.textContent = 'Captcha cannot be blank';
+        captchaInp.classList.add(STATE_LIST.error);
+        captchaInp.classList.remove(STATE_LIST.success);
+        statusText.textContent = TEXT_ERRORS.blankCaptcha;
     } else {
 
         if (captchaValue == captchaText.textContent) {
-            statusText.classList.add('_success');
-            statusText.classList.remove('_error');
+            statusText.classList.add(STATE_LIST.success);
+            statusText.classList.remove(STATE_LIST.error);
 
-            captchaInp.classList.add('_success');
-            captchaInp.classList.remove('_error');
-            statusText.textContent = 'Nice! You don\'t appear to the robot.';
+            captchaInp.classList.add(STATE_LIST.success);
+            captchaInp.classList.remove(STATE_LIST.error);
+            statusText.textContent = TEXT_ERRORS.completeCaptcha;
         } else {
-            statusText.classList.add('_error');
-            statusText.classList.remove('_success');
+            statusText.classList.add(STATE_LIST.error);
+            statusText.classList.remove(STATE_LIST.success);
 
-            captchaInp.classList.add('_error');
-            captchaInp.classList.remove('_success');
-            statusText.textContent = 'Captcha not matched. Please try again!';
+            captchaInp.classList.add(STATE_LIST.error);
+            captchaInp.classList.remove(STATE_LIST.success);
+            statusText.textContent = TEXT_ERRORS.captchaNotMatch;
         }
     }
 }
 
-// * SHOW/HIDE TRIGGER
+// * Show/hide trigger
 
 function showValue(btn) {
     let inp = btn.previousElementSibling;
 
     if (inp.getAttribute('type') == 'password') {
         inp.setAttribute('type', 'text');
-        btn.classList.remove('_hide');
-        btn.classList.add('_show');
+        btn.classList.add(STATE_LIST.show);
+        btn.classList.remove(STATE_LIST.hide);
     } else {
         inp.setAttribute('type', 'password');
-        btn.classList.remove('_show');
-        btn.classList.add('_hide');
+        btn.classList.add(STATE_LIST.hide);
+        btn.classList.remove(STATE_LIST.show);
     }
 }
 
-// * CHECKBOX
+// * Checkbox
 
 function isChecked(checkbox) {
-    if (checkbox.checked == false) {
-        setErrorFor(checkbox, 'You must agree to the terms');
-    } else {
-        setSuccessFor(checkbox);
-    }
+    if (checkbox.checked == false) setErrorFor(checkbox, TEXT_ERRORS.notChecked);
+    else setSuccessFor(checkbox);
 }
 
 function setErrorFor(input, message) {
     const formControl = input.parentElement;
     const small = formControl.querySelector('small');
 
-    formControl.classList.add('_error')
-    formControl.classList.remove('_success');
+    formControl.classList.add(STATE_LIST.error)
+    formControl.classList.remove(STATE_LIST.success);
     small.textContent = message;
 }
 
 function setSuccessFor(input) {
     const formControl = input.parentElement;
 
-    formControl.classList.remove('_error')
-    formControl.classList.add('_success');
+    formControl.classList.add(STATE_LIST.success);
+    formControl.classList.remove(STATE_LIST.error)
 }
 
 // * CALL FUNCTIONS IN SIGNUP
 
-signupInputs.forEach(currentInputs => {
+SIGNUP_NODES.inputs.forEach(currentInputs => {
     currentInputs.addEventListener('input', function (e) {
         e.preventDefault();
-        e = event.currentTarget;
+        e = e.currentTarget;
 
-        if (signupFullname && e == signupFullname) {
-            setTimeout(function () {
-                checkFullname(signupFullname);
-            }, 4000);
+        if (SIGNUP_NODES.fullname && e == SIGNUP_NODES.fullname) {
+            setTimeout(() => {
+                checkFullname(SIGNUP_NODES.fullname);
+            }, validInterval);
         }
-        if (signupUsername && e == signupUsername) {
-            setTimeout(function () {
-                checkUsername(signupUsername);
-            }, 4000);
+        if (SIGNUP_NODES.username && e == SIGNUP_NODES.username) {
+            setTimeout(() => {
+                checkUsername(SIGNUP_NODES.username);
+            }, validInterval);
         }
-        if (signupEmail && e == signupEmail) {
-            setTimeout(function () {
-                checkEmail(signupEmail);
-            }, 6000);
+        if (SIGNUP_NODES.email && e == SIGNUP_NODES.email) {
+            setTimeout(() => {
+                checkEmail(SIGNUP_NODES.email);
+            }, validInterval);
         }
-        if (signupPassword && e == signupPassword) {
-            setTimeout(function () {
-                checkPassword(signupPassword);
-            }, 4000);
+        if (SIGNUP_NODES.password && e == SIGNUP_NODES.password) {
+            setTimeout(() => {
+                checkPassword(SIGNUP_NODES.password);
+            }, validInterval);
         }
-        if (signupPassword2 && e == signupPassword2) {
-            setTimeout(function () {
-                comparePassword(signupPassword, signupPassword2);
-            }, 4000);
+        if (SIGNUP_NODES.repeatPassword && e == SIGNUP_NODES.repeatPassword) {
+            setTimeout(() => {
+                comparePassword(SIGNUP_NODES.password, SIGNUP_NODES.repeatPassword);
+            }, validInterval);
         }
     })
 });
 
-// CALL FUNCTION FOR SHOW/HIDE TRIGGER
+// * CALL FUNCTION FOR SHOW/HIDE TRIGGER
 
-triggerBtns.forEach(currentBtn => {
+SIGNUP_NODES.triggers.forEach(currentBtn => {
     currentBtn.addEventListener('click', function (e) {
         e.preventDefault();
-        showValue(currentBtn);
+        showValue(this);
     })
 });
 
 // * CALL FUNCTIONS FOR SIGNUP CAPTCHA
 
-getCaptcha(signupCaptchaText);
+getCaptcha(SIGNUP_NODES.captchaText);
 
-signupReloadBtn.addEventListener('click', (e) => {
+SIGNUP_NODES.reloadBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    getCaptcha(signupCaptchaText);
+    getCaptcha(SIGNUP_NODES.captchaText);
 });
 
-signupCaptchaInp.addEventListener('input', function () {
-    setTimeout(function () {
-        checkCaptcha(signupCaptchaInp, signupCaptchaText, signupStatusText);
-    }, 6000);
+SIGNUP_NODES.captchaInp.addEventListener('input', function () {
+    setTimeout(() => {
+        checkCaptcha(SIGNUP_NODES.captchaInp, SIGNUP_NODES.captchaText, SIGNUP_NODES.statusText);
+    }, validInterval);
 });
 
 // * CALL FUNCTIONS ON SIGNUP SUBMIT
 
-signupForm.addEventListener('submit', function (e) {
+SIGNUP_NODES.form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    checkFullname(signupFullname);
-    checkUsername(signupUsername);
-    checkEmail(signupEmail);
-    checkPassword(signupPassword);
-    comparePassword(signupPassword, signupPassword2);
-    checkCaptcha(signupCaptchaInp, signupCaptchaText, signupStatusText);
-    isChecked(signupCheckbox);
+    checkFullname(SIGNUP_NODES.fullname);
+    checkUsername(SIGNUP_NODES.username);
+    checkEmail(SIGNUP_NODES.email);
+    checkPassword(SIGNUP_NODES.password);
+    comparePassword(SIGNUP_NODES.password, SIGNUP_NODES.repeatPassword);
+    checkCaptcha(SIGNUP_NODES.captchaInp, SIGNUP_NODES.captchaText, SIGNUP_NODES.statusText);
+    isChecked(SIGNUP_NODES.checkbox);
 })
 
 // * CALL FUNCTIONS IN LOGIN
 
-loginInputs.forEach(currentInputs => {
+LOGIN_NODES.inputs.forEach(currentInputs => {
     currentInputs.addEventListener('input', function (e) {
         e.preventDefault();
-        e = event.currentTarget;
+        e = e.currentTarget;
 
-        if (loginUsername && e == loginUsername) {
-            setTimeout(function () {
-                checkUsername(loginUsername);
-            }, 4000);
+        if (LOGIN_NODES.username && e == LOGIN_NODES.username) {
+            setTimeout(() => {
+                checkUsername(LOGIN_NODES.username);
+            }, validInterval);
         }
-        if (loginPassword && e == loginPassword) {
-            setTimeout(function () {
-                checkPassword(loginPassword);
-            }, 4000);
+        if (LOGIN_NODES.password && e == LOGIN_NODES.password) {
+            setTimeout(() => {
+                checkPassword(LOGIN_NODES.password);
+            }, validInterval);
         }
     })
 });
 
 // * CALL FUNCTIONS FOR LOGIN CAPTCHA
 
-getCaptcha(loginCaptchaText);
+getCaptcha(LOGIN_NODES.captchaText);
 
-loginReloadBtn.addEventListener('click', (e) => {
+LOGIN_NODES.reloadBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    getCaptcha(loginCaptchaText);
+    getCaptcha(LOGIN_NODES.captchaText);
 });
 
-loginCaptchaInp.addEventListener('input', function () {
-    setTimeout(function () {
-        checkCaptcha(loginCaptchaInp, loginCaptchaText, loginStatusText);
-    }, 6000);
+LOGIN_NODES.captchaInp.addEventListener('input', function () {
+    setTimeout(() => {
+        checkCaptcha(LOGIN_NODES.captchaInp, LOGIN_NODES.captchaText, LOGIN_NODES.statusText);
+    }, validInterval);
 });
 
 // * CALL FUNCTIONS ON LOGIN SUBMIT
 
-loginForm.addEventListener('submit', function (e) {
+LOGIN_NODES.form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    checkUsername(loginUsername);
-    checkPassword(loginPassword);
-    checkCaptcha(loginCaptchaInp, loginCaptchaText, loginStatusText);
+    checkUsername(LOGIN_NODES.username);
+    checkPassword(LOGIN_NODES.password);
+    checkCaptcha(LOGIN_NODES.captchaInp, LOGIN_NODES.captchaText, LOGIN_NODES.statusText);
 });
 
 // * CALL FUNCTIONS FOR RESET
 
-resetEmail.addEventListener('input', function (e) {
+RESET_NODES.email.addEventListener('input', function (e) {
     e.preventDefault();
-    e = event.currentTarget;
+    e = e.currentTarget;
 
-    setTimeout(function () {
-        checkEmail(resetEmail);
-    }, 6000);
+    setTimeout(() => {
+        checkEmail(RESET_NODES.email);
+    }, validInterval);
 });
 
-resetForm.addEventListener('submit', function (e) {
+RESET_NODES.form.addEventListener('submit', function (e) {
     e.preventDefault();
-    checkEmail(resetEmail);
+    checkEmail(RESET_NODES.email);
 });
