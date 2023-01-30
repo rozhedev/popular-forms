@@ -60,6 +60,17 @@ const STATE_LIST = {
     show: "_show",
 }
 
+// * Validation intervals
+const VALID_INT = {
+    username: {
+        min: 5,
+        max: 20,
+    },
+    pass: {
+        min: 8,
+    }
+}
+
 let validInterval = 5000;
 
 // * RegEx
@@ -92,14 +103,12 @@ function checkFullname(fullname) {
 
 function checkUsername(username) {
     const usernameValue = username.value.trim();
-    let minUserLength = 5;
-    let maxUserLenth = 20;
 
     if (usernameValue === '') setErrorFor(username, TEXT_ERRORS.blankUsername);
     else if (!isUsername(usernameValue)) setErrorFor(username, TEXT_ERRORS.invalidCharsUsername);
     else if (
-        usernameValue.length < minUserLength ||
-        usernameValue.length > maxUserLenth
+        usernameValue.length < VALID_INT.username.min ||
+        usernameValue.length > VALID_INT.username.max
     ) setErrorFor(username, TEXT_ERRORS.lenghtUsername);
     else setSuccessFor(username);
 }
@@ -116,7 +125,9 @@ function checkPassword(password) {
     const passwordValue = password.value.trim();
 
     if (passwordValue === '') setErrorFor(password, TEXT_ERRORS.blankPass);
-    else if (!isPassword(passwordValue)) setErrorFor(password, TEXT_ERRORS.unsafePass);
+    else if (
+        !isPassword(passwordValue) && passwordValue.length < VALID_INT.pass.min
+    ) setErrorFor(password, TEXT_ERRORS.unsafePass);
     else setSuccessFor(password);
 }
 
@@ -131,20 +142,10 @@ function comparePassword(password, repeatPassword) {
 
 // * CAPTCHA FUNCTIONS
 
-// * RegEx for generate random chars
-
-function generateCode(str) {
-    str = new RandExp(/[a-zA-Z0-9]{6}/).gen();
-    return str;
-}
-
 function getCaptcha(outputCode) {
-    let randomStr;
-    randomStr = generateCode(randomStr);
+    let randomStr = new RandExp(/[a-zA-Z0-9]{6}/).gen();
     outputCode.textContent = randomStr;
 }
-
-// * Correctness check
 
 function checkCaptcha(captchaInp, captchaText, statusText) {
     const captchaValue = captchaInp.value;

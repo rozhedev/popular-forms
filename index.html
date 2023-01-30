@@ -46,7 +46,7 @@
                 <div class="signup__form-info">
                     <i class="fas fa-info-circle signup__form-icon"></i>
                     <span class="signup__form-text">
-                        Password must be at least 8 char. long and contain uppercase letters and numbers
+                        Password must be at least 8 char. long and contain uppercase letters, numbers and symbols (e. g. $#@)
                     </span>
                 </div>
                 <input type="password" placeholder="Password" class="signup__form-inp" id="signup-password">
@@ -67,11 +67,23 @@
                 <small class="signup__form-message">Error message</small>
             </div>
 
-            <div class="signup__form-control">
-                <div class="signup__captcha captcha">
+            <div class="radio-group">
+                <div class="signup__form-label">Gender</div>
+                <div class="signup__form-control radio">
+                    <small class="signup__form-message">Error message</small>
+                    <input type="radio" name="gender-radio-btn" id="radio-btn-male" class="radio__input">
+                    <label for="radio-btn-male" class="radio__label">Male</label>
+                </div>
+            </div>
+    
+            <div class="signup__form-control radio">
+                <input type="radio" name="gender-radio-btn" id="radio-btn-female" class="radio__input">
+                <label for="radio-btn-female" class="radio__label">Female</label>
+            </div>
+
+            <div class="signup__form-control captcha">
                     <div class="captcha__area">
                         <div class="captcha__area-inner">
-<!--                             <img src="img/bg6.png" class="captcha__area-img" alt="bg6"> -->
                             <span class="captcha__area-text" id="signup-captcha-text"></span>
                         </div>
                         <button class="captcha__reload-btn btn" id="signup-reload-btn">
@@ -85,14 +97,15 @@
                             class="captcha__form-inp signup__form-inp" placeholder="Enter captcha" maxlength="6">
                     </div>
                     <small class="captcha__status" id="signup-captcha-status">Error message</small>
-                </div>
+                
             </div>
 
-            <div class="signup__form-control signup__form-control--chekbox">
-                <input type="checkbox" placeholder="Confirm password" class="signup__form-checkbox"
+            <div class="signup__form-control checkbox">
+                <input type="checkbox" placeholder="Confirm password" class="checkbox__input signup__form-checkbox"
                     id="signup-checkbox">
-                <label for="signup-checkbox" class="signup__form-terms">I agree with <a href="#">Terms of
-                        Use</a></label>
+                <label for="signup-checkbox" class="checkbox__label signup__form-terms">I agree with
+                    <a href="#">Terms of Use</a>
+                </label>
                 <small class="signup__form-message">Error message</small>
             </div>
             <button class="signup__form-btn btn">Register</button>
@@ -132,8 +145,8 @@
                 <div class="signup__captcha captcha">
                     <div class="captcha__area">
                         <div class="captcha__area-inner">
-                        <!--  Background for captcha   -->
-<!--                             <img src="img/bg6.png" class="captcha__area-img" alt="bg6"> -->
+                            <!--  Background for captcha   -->
+                            <!--                             <img src="img/bg6.png" class="captcha__area-img" alt="bg6"> -->
                             <span class="captcha__area-text" id="login-captcha-text"></span>
                         </div>
                         <button class="captcha__reload-btn btn" id="login-reload-btn">

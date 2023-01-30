@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Zen+Antique&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Zen+Antique&display=swap');
 
 $accent: #655faf;
 $errorRed: #912a10;
@@ -18,7 +18,7 @@ $transition: 0.6s all;
 
 body {
     background-color: $accent;
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Open Sans', sans-serif;
     min-height: 100vh;
 }
 
@@ -43,6 +43,37 @@ body {
     }
 }
 
+// * FORM CONTROL
+
+.signup__form-control {
+    margin-bottom: 10px;
+    padding-bottom: 18px;
+    position: relative;
+
+    &._success {
+        transition: $transition;
+        .signup__form-inp {
+            border-color: $successGreen;
+        }
+        .signup__form-success {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+    &._error {
+        .signup__form-inp {
+            border-color: $errorRed;
+        }
+        .signup__form-message {
+            visibility: visible;
+        }
+        .signup__form-error {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+}
+
 // * SIGNUP
 
 .signup {
@@ -64,40 +95,7 @@ body {
         padding: 30px 40px;
         max-width: 700px;
 
-        // * FORM CONTROL
-
-        &-control {
-            margin-bottom: 10px;
-            padding-bottom: 18px;
-            position: relative;
-
-            &._success {
-                transition: $transition;
-                .signup__form-inp {
-                    border-color: $successGreen;
-                }
-                .signup__form-success {
-                    visibility: visible;
-                    opacity: 1;
-                }
-            }
-            &._error {
-                .signup__form-inp {
-                    border-color: $errorRed;
-                }
-                .signup__form-message {
-                    visibility: visible;
-                }
-                .signup__form-error {
-                    visibility: visible;
-                    opacity: 1;
-                }
-            }
-            &--checkbox {
-                margin-bottom: 0;
-            }
-        }
-
+        // ? Transfer
         &-label {
             display: inline-block;
             margin-bottom: 5px;
@@ -218,6 +216,8 @@ body {
     // * CAPTCHA
 
     .captcha {
+        margin-bottom: 0;
+
         &__area {
             display: flex;
             align-items: center;
@@ -229,7 +229,7 @@ body {
                 width: 100%;
                 position: relative;
                 user-select: none;
-              // Background for captcha
+                // Background for captcha
                 background-color: $dark;
                 border-radius: 8px;
             }
@@ -238,7 +238,6 @@ body {
                 height: 100%;
                 object-fit: cover;
                 border-radius: 8px;
-
             }
             &-text {
                 position: absolute;
@@ -248,7 +247,7 @@ body {
                 color: $light;
                 text-align: center;
                 font-size: 30px;
-                font-family: "Zen Antique", serif;
+                font-family: 'Zen Antique', serif;
                 font-style: italic;
                 letter-spacing: 0.56em;
                 text-shadow: 0 0 2px $dark;
@@ -302,4 +301,119 @@ body {
             }
         }
     }
+}
+
+// * CHECKBOX
+
+.checkbox {
+    position: relative;
+
+    &__input {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
+        appearance: none;
+        position: absolute;
+
+        &:checked + .checkbox__label::before {
+            border-color: $accent;
+        }
+        &:checked + .checkbox__label::after {
+            opacity: 1;
+        }
+    }
+    &__label {
+        padding-left: 1.8rem;
+        line-height: 1.2;
+        vertical-align: top;
+        font-size: 1rem;
+        cursor: pointer;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: 1;
+
+            display: block;
+            width: 16px;
+            height: 16px;
+            border: 1px solid $dark;
+            border-radius: 4px;
+            background-color: $light;
+        }
+        &::after {
+            content: '\2713';
+            position: absolute;
+            left: 3px;
+            top: 0px;
+            z-index: 2;
+
+            opacity: 0;
+            width: 12px;
+            height: 12px;
+            background-size: 12px 12px;
+            transition: $transition;
+        }
+    }
+}
+
+// * RADIO
+
+.radio {
+    position: relative;
+}
+
+.radio__input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+}
+
+.radio__label {
+    margin-left: 20px;
+}
+
+.radio__label:before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+
+    border: 1px solid $dark;
+    border-radius: 50%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.radio__label:after {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 12px;
+
+    background-color: $accent;
+    border-radius: 50%;
+    opacity: 0;
+
+    position: absolute;
+    top: 3.2px;
+    left: 3.2px;
+    z-index: 2;
+}
+
+.radio__input:checked + .radio__label:before {
+    border-color: $accent;
+}
+
+.radio__input:checked + .radio__label:after {
+    opacity: 1;
 }
