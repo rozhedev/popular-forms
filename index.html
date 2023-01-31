@@ -41,16 +41,17 @@
                 <i class="fas fa-times form-conroller__icon-error"></i>
             </div>
 
+            <div class="form-info">
+                <i class="fas fa-info-circle form-info__icon"></i>
+                <span class="form-info__text">
+                    Password must be at least 8 char. long and contain uppercase letters
+                </span>
+            </div>
+
             <div class="form-conroller">
                 <label for="signup-password" class="form-conroller__label">Password</label>
-                <div class="form-conroller__info">
-                    <i class="fas fa-info-circle form-conroller__icon-info"></i>
-                    <span class="signup__form-text">
-                        Password must be at least 8 char. long and contain uppercase letters
-                    </span>
-                </div>
                 <input type="password" placeholder="Password" class="form-conroller__inp signup-form__inp" id="signup-password">
-                <button type="button" class="trigger trigger--pos-top _show">
+                <button type="button" class="trigger _show">
                     <i class="far fa-eye trigger-show"></i>
                     <i class="fas fa-eye-slash trigger-hide"></i>
                 </button>
@@ -68,23 +69,22 @@
             </div>
 
             <div class="radio-group">
-                <div class="form-conroller__label">Gender</div>
+                <div class="form-conroller__label">Your gender</div>
                 <div class="form-conroller radio">
-                    <small class="form-conroller__message">Error message</small>
                     <input type="radio" name="gender-radio-btn" id="radio-btn-male" class="radio__input">
                     <label for="radio-btn-male" class="radio__label">Male</label>
+                    <small class="form-conroller__message">Error message</small>
                 </div>
-            </div>
-
-            <div class="form-conroller radio">
-                <input type="radio" name="gender-radio-btn" id="radio-btn-female" class="radio__input">
-                <label for="radio-btn-female" class="radio__label">Female</label>
+                <div class="form-conroller radio">
+                    <input type="radio" name="gender-radio-btn" id="radio-btn-female" class="radio__input">
+                    <label for="radio-btn-female" class="radio__label">Female</label>
+                    <small class="form-conroller__message">Error message</small>
+                </div>
             </div>
 
             <div class="form-conroller captcha">
                 <div class="captcha__area">
                     <div class="captcha__area-inner">
-                        <!--  Background for captcha  -->
                         <span class="captcha__area-text" id="signup-captcha-text"></span>
                     </div>
                     <button type="button" class="captcha__reload-btn btn" id="signup-reload-btn">
@@ -97,7 +97,7 @@
                     <input type="text" name="signup-captcha" id="signup-captcha-inp"
                         class="captcha__form-inp form-conroller__inp" placeholder="Enter captcha" maxlength="6">
                 </div>
-                <small class="captcha__status" id="signup-captcha-status">Error message</small>
+                <small class="captcha__status" id="signup-captcha-error">Error message</small>
             </div>
 
             <div class="form-conroller checkbox">
@@ -108,7 +108,7 @@
                 </label>
                 <small class="form-conroller__message">Error message</small>
             </div>
-            <button class="form__btn btn">Register</button>
+            <button type="submit" class="form__btn btn">Register</button>
         </form>
     </div>
 
@@ -144,7 +144,6 @@
             <div class="form-conroller captcha">
                 <div class="captcha__area">
                     <div class="captcha__area-inner">
-                        <!--  Background for captcha  -->
                         <span class="captcha__area-text" id="login-captcha-text"></span>
                     </div>
                     <button type="button" class="captcha__reload-btn btn" id="login-reload-btn">
@@ -157,10 +156,10 @@
                     <input type="text" name="login-captcha" id="login-captcha-inp"
                         class="captcha__form-inp form-conroller__inp" placeholder="Enter captcha" maxlength="6">
                 </div>
-                <small class="captcha__status" id="login-captcha-status">Error message</small>
+                <small class="captcha__status" id="login-captcha-error">Error message</small>
             </div>
 
-            <button class="form__btn btn">Log in</button>
+            <button type="submit" class="form__btn btn">Log in</button>
         </form>
     </div>
 
@@ -180,7 +179,7 @@
                 <i class="fas fa-check form-conroller__icon-success"></i>
                 <i class="fas fa-times form-conroller__icon-error"></i>
             </div>
-            <button class="form__btn btn">Reset password</button>
+            <button type="submit" class="form__btn btn">Reset password</button>
         </form>
     </div>
 

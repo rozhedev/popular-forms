@@ -54,10 +54,32 @@ body {
   padding: 20px 40px;
 }
 
+.form-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 8px 12px;
+  margin: 4px 0 12px;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  background-color: #655faf;
+  color: #f9f9f9;
+  border-radius: 8px;
+}
+.form-info__icon {
+  font-size: 40px;
+  margin-right: 12px;
+}
+
+.radio-group .form-conroller__label {
+  margin-bottom: 12px;
+}
+
 .form-conroller {
+  position: relative;
   margin-bottom: 10px;
   padding-bottom: 18px;
-  position: relative;
 }
 .form-conroller__label {
   display: inline-block;
@@ -88,26 +110,6 @@ body {
 }
 .form-conroller__message.error {
   visibility: visible;
-}
-.form-conroller__info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 8px 12px;
-  margin: 4px 0 12px;
-  font-size: 14px;
-  letter-spacing: 0.02em;
-  background-color: #655faf;
-  color: #f9f9f9;
-  border-radius: 8px;
-}
-.form-conroller__icon-info {
-  font-size: 40px;
-  margin-right: 12px;
-}
-.form-conroller__checkbox {
-  margin-right: 4px;
 }
 .form-conroller__icon-success, .form-conroller__icon-error {
   visibility: hidden;
@@ -161,9 +163,6 @@ body {
   color: #f9f9f9;
   display: block;
   transition: 0.6s all;
-}
-.trigger--pos-top {
-  top: 108px;
 }
 .trigger-show, .trigger-hide {
   color: #f9f9f9;
@@ -330,7 +329,10 @@ body {
 }
 
 .radio__label {
-  margin-left: 20px;
+  padding-left: 1.8rem;
+  line-height: 1.2;
+  vertical-align: top;
+  font-size: 1rem;
 }
 
 .radio__label:before {

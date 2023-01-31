@@ -8,13 +8,14 @@ const SIGNUP_NODES = {
     email: document.getElementById('signup-email'),
     password: document.getElementById('signup-password'),
     repeatPassword: document.getElementById('signup-password2'),
-    checkbox: document.getElementById('signup-checkbox'),
     triggers: document.querySelectorAll('.trigger'),        // * Buttons for view/hide password
 
+    radioList: document.querySelectorAll('.radio__input'),
     captchaText: document.getElementById('signup-captcha-text'),
     reloadBtn: document.getElementById('signup-reload-btn'),
     captchaInp: document.getElementById('signup-captcha-inp'),
-    statusText: document.getElementById('signup-captcha-status'),
+    captchaErr: document.getElementById('signup-captcha-error'),
+    checkbox: document.getElementById('signup-checkbox'),
 }
 
 const LOGIN_NODES = {
@@ -25,7 +26,7 @@ const LOGIN_NODES = {
     captchaText: document.getElementById('login-captcha-text'),
     reloadBtn: document.getElementById('login-reload-btn'),
     captchaInp: document.getElementById('login-captcha-inp'),
-    statusText: document.getElementById('login-captcha-status'),
+    captchaErr: document.getElementById('login-captcha-error'),
 }
 
 // * RESET FORM
@@ -51,6 +52,7 @@ const TEXT_ERRORS = {
     completeCaptcha: "Nice! You don't appear to the robot.",
     captchaNotMatch: "Captcha not matched. Please try again!",
     notChecked: "You must agree to the terms",
+    notCheckedRadio: "Choose one variant",
 }
 
 const STATE_LIST = {
@@ -68,7 +70,7 @@ const VALID_INT = {
     },
 }
 
-let validInterval = 5000;
+let validDelay = 5000;
 
 // * RegEx
 
@@ -122,7 +124,7 @@ function checkPassword(password) {
     const passwordValue = password.value.trim();
 
     if (passwordValue === '') setErrorFor(password, TEXT_ERRORS.blankPass);
-    else if (!isPassword(passwordValue) ) setErrorFor(password, TEXT_ERRORS.unsafePass);
+    else if (!isPassword(passwordValue)) setErrorFor(password, TEXT_ERRORS.unsafePass);
     else setSuccessFor(password);
 }
 
@@ -142,32 +144,26 @@ function getCaptcha(outputCode) {
     outputCode.textContent = randomStr;
 }
 
-function checkCaptcha(captchaInp, captchaText, statusText) {
+function checkCaptcha(captchaInp, captchaText, captchaErr) {
     const captchaValue = captchaInp.value;
 
-    if (captchaValue == '') {
-        statusText.classList.add(STATE_LIST.error);
-        statusText.classList.remove(STATE_LIST.success);
+    if (captchaValue == captchaText.textContent) {
+        captchaErr.classList.add(STATE_LIST.success);
+        captchaErr.classList.remove(STATE_LIST.error);
 
+        captchaInp.classList.add(STATE_LIST.success);
+        captchaInp.classList.remove(STATE_LIST.error);
+        captchaErr.textContent = TEXT_ERRORS.completeCaptcha;
+    } else {
+        captchaErr.classList.add(STATE_LIST.error);
+        captchaErr.classList.remove(STATE_LIST.success);
         captchaInp.classList.add(STATE_LIST.error);
         captchaInp.classList.remove(STATE_LIST.success);
-        statusText.textContent = TEXT_ERRORS.blankCaptcha;
-    } else {
 
-        if (captchaValue == captchaText.textContent) {
-            statusText.classList.add(STATE_LIST.success);
-            statusText.classList.remove(STATE_LIST.error);
-
-            captchaInp.classList.add(STATE_LIST.success);
-            captchaInp.classList.remove(STATE_LIST.error);
-            statusText.textContent = TEXT_ERRORS.completeCaptcha;
+        if (captchaValue == "") {
+            captchaErr.textContent = TEXT_ERRORS.blankCaptcha;
         } else {
-            statusText.classList.add(STATE_LIST.error);
-            statusText.classList.remove(STATE_LIST.success);
-
-            captchaInp.classList.add(STATE_LIST.error);
-            captchaInp.classList.remove(STATE_LIST.success);
-            statusText.textContent = TEXT_ERRORS.captchaNotMatch;
+            captchaErr.textContent = TEXT_ERRORS.captchaNotMatch;
         }
     }
 }
@@ -188,12 +184,30 @@ function showValue(btn) {
     }
 }
 
-// * Checkbox
+// * Checkbox & radio
 
 function isChecked(checkbox) {
     if (checkbox.checked == false) setErrorFor(checkbox, TEXT_ERRORS.notChecked);
     else setSuccessFor(checkbox);
 }
+
+function isCheckedRadio(nodeList) {
+    if (nodeList.length < 0) return;
+    else {
+        for (const item of nodeList) {
+            console.log(item.checked);
+            
+            if (item.checked == true) {
+                setSuccessFor(item);
+                return;
+            } else {
+                setErrorFor(item, TEXT_ERRORS.notCheckedRadio);
+            }
+        }
+    }
+}
+
+// * COMMON FUNC
 
 function setErrorFor(input, message) {
     const formControl = input.parentElement;
@@ -211,6 +225,10 @@ function setSuccessFor(input) {
     formControl.classList.remove(STATE_LIST.error)
 }
 
+function getCallCond(elem, event) {
+    return elem && event == elem;
+}
+
 // * CALL FUNCTIONS IN SIGNUP
 
 SIGNUP_NODES.inputs.forEach(currentInputs => {
@@ -218,30 +236,30 @@ SIGNUP_NODES.inputs.forEach(currentInputs => {
         e.preventDefault();
         e = e.currentTarget;
 
-        if (SIGNUP_NODES.fullname && e == SIGNUP_NODES.fullname) {
+        if (getCallCond(SIGNUP_NODES.fullname, e)) {
             setTimeout(() => {
                 checkFullname(SIGNUP_NODES.fullname);
-            }, validInterval);
+            }, validDelay);
         }
-        if (SIGNUP_NODES.username && e == SIGNUP_NODES.username) {
+        if (getCallCond(SIGNUP_NODES.username, e)) {
             setTimeout(() => {
                 checkUsername(SIGNUP_NODES.username);
-            }, validInterval);
+            }, validDelay);
         }
-        if (SIGNUP_NODES.email && e == SIGNUP_NODES.email) {
+        if (getCallCond(SIGNUP_NODES.email, e)) {
             setTimeout(() => {
                 checkEmail(SIGNUP_NODES.email);
-            }, validInterval);
+            }, validDelay);
         }
-        if (SIGNUP_NODES.password && e == SIGNUP_NODES.password) {
+        if (getCallCond(SIGNUP_NODES.password, e)) {
             setTimeout(() => {
                 checkPassword(SIGNUP_NODES.password);
-            }, validInterval);
+            }, validDelay);
         }
-        if (SIGNUP_NODES.repeatPassword && e == SIGNUP_NODES.repeatPassword) {
+        if (getCallCond(SIGNUP_NODES.repeatPassword, e)) {
             setTimeout(() => {
                 comparePassword(SIGNUP_NODES.password, SIGNUP_NODES.repeatPassword);
-            }, validInterval);
+            }, validDelay);
         }
     })
 });
@@ -266,8 +284,8 @@ SIGNUP_NODES.reloadBtn.addEventListener('click', (e) => {
 
 SIGNUP_NODES.captchaInp.addEventListener('input', function () {
     setTimeout(() => {
-        checkCaptcha(SIGNUP_NODES.captchaInp, SIGNUP_NODES.captchaText, SIGNUP_NODES.statusText);
-    }, validInterval);
+        checkCaptcha(SIGNUP_NODES.captchaInp, SIGNUP_NODES.captchaText, SIGNUP_NODES.captchaErr);
+    }, validDelay);
 });
 
 // * CALL FUNCTIONS ON SIGNUP SUBMIT
@@ -280,28 +298,27 @@ SIGNUP_NODES.form.addEventListener('submit', function (e) {
     checkEmail(SIGNUP_NODES.email);
     checkPassword(SIGNUP_NODES.password);
     comparePassword(SIGNUP_NODES.password, SIGNUP_NODES.repeatPassword);
-    checkCaptcha(SIGNUP_NODES.captchaInp, SIGNUP_NODES.captchaText, SIGNUP_NODES.statusText);
+    checkCaptcha(SIGNUP_NODES.captchaInp, SIGNUP_NODES.captchaText, SIGNUP_NODES.captchaErr);
+    isCheckedRadio(SIGNUP_NODES.radioList);
     isChecked(SIGNUP_NODES.checkbox);
 })
 
 // * CALL FUNCTIONS IN LOGIN
 
-console.log(LOGIN_NODES.inputs);
 LOGIN_NODES.inputs.forEach(currentInputs => {
     currentInputs.addEventListener('input', function (e) {
-        console.log(1);
         e.preventDefault();
         e = e.currentTarget;
 
-        if (LOGIN_NODES.username && e == LOGIN_NODES.username) {
+        if (getCallCond(LOGIN_NODES.username, e)) {
             setTimeout(() => {
                 checkUsername(LOGIN_NODES.username);
-            }, validInterval);
+            }, validDelay);
         }
-        if (LOGIN_NODES.password && e == LOGIN_NODES.password) {
+        if (getCallCond(LOGIN_NODES.password, e)) {
             setTimeout(() => {
                 checkPassword(LOGIN_NODES.password);
-            }, validInterval);
+            }, validDelay);
         }
     })
 });
@@ -317,8 +334,8 @@ LOGIN_NODES.reloadBtn.addEventListener('click', (e) => {
 
 LOGIN_NODES.captchaInp.addEventListener('input', function () {
     setTimeout(() => {
-        checkCaptcha(LOGIN_NODES.captchaInp, LOGIN_NODES.captchaText, LOGIN_NODES.statusText);
-    }, validInterval);
+        checkCaptcha(LOGIN_NODES.captchaInp, LOGIN_NODES.captchaText, LOGIN_NODES.captchaErr);
+    }, validDelay);
 });
 
 // * CALL FUNCTIONS ON LOGIN SUBMIT
@@ -328,7 +345,7 @@ LOGIN_NODES.form.addEventListener('submit', function (e) {
 
     checkUsername(LOGIN_NODES.username);
     checkPassword(LOGIN_NODES.password);
-    checkCaptcha(LOGIN_NODES.captchaInp, LOGIN_NODES.captchaText, LOGIN_NODES.statusText);
+    checkCaptcha(LOGIN_NODES.captchaInp, LOGIN_NODES.captchaText, LOGIN_NODES.captchaErr);
 });
 
 // * CALL FUNCTIONS FOR RESET
@@ -339,7 +356,7 @@ RESET_NODES.email.addEventListener('input', function (e) {
 
     setTimeout(() => {
         checkEmail(RESET_NODES.email);
-    }, validInterval);
+    }, validDelay);
 });
 
 RESET_NODES.form.addEventListener('submit', function (e) {
