@@ -34,33 +34,12 @@ body {
   color: #655faf;
 }
 
-.signup__form-control {
-  margin-bottom: 10px;
-  padding-bottom: 18px;
-  position: relative;
-}
-.signup__form-control._success {
-  transition: 0.6s all;
-}
-.signup__form-control._success .signup__form-inp {
-  border-color: #0e833b;
-}
-.signup__form-control._success .signup__form-success {
-  visibility: visible;
-  opacity: 1;
-}
-.signup__form-control._error .signup__form-inp {
-  border-color: #912a10;
-}
-.signup__form-control._error .signup__form-message {
-  visibility: visible;
-}
-.signup__form-control._error .signup__form-error {
-  visibility: visible;
-  opacity: 1;
+.form {
+  padding: 30px 40px;
+  max-width: 400px;
 }
 
-.signup {
+.form-wrapper {
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(17, 17, 17, 0.3);
@@ -69,20 +48,22 @@ body {
   max-width: 100%;
   margin: 40px auto;
 }
-.signup__header {
+.form-wrapper__header {
   border-bottom: 1px solid #111;
   background-color: #fff;
   padding: 20px 40px;
 }
-.signup__form {
-  padding: 30px 40px;
-  max-width: 700px;
+
+.form-conroller {
+  margin-bottom: 10px;
+  padding-bottom: 18px;
+  position: relative;
 }
-.signup__form-label {
+.form-conroller__label {
   display: inline-block;
   margin-bottom: 5px;
 }
-.signup__form-inp {
+.form-conroller__inp {
   border: 2px solid #f0f0f0;
   border-radius: 4px;
   display: block;
@@ -92,11 +73,11 @@ body {
   width: 100%;
   transition: 0.6s all;
 }
-.signup__form-inp:focus {
+.form-conroller__inp:focus {
   outline: 0;
   border-color: #655faf;
 }
-.signup__form-message {
+.form-conroller__message {
   display: block;
   font-size: 13px;
   color: #912a10;
@@ -105,10 +86,10 @@ body {
   left: 0;
   visibility: hidden;
 }
-.signup__form-message.error {
+.form-conroller__message.error {
   visibility: visible;
 }
-.signup__form-info {
+.form-conroller__info {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -121,14 +102,14 @@ body {
   color: #f9f9f9;
   border-radius: 8px;
 }
-.signup__form-icon {
+.form-conroller__icon-info {
   font-size: 40px;
   margin-right: 12px;
 }
-.signup__form-checkbox {
+.form-conroller__checkbox {
   margin-right: 4px;
 }
-.signup__form-success, .signup__form-error {
+.form-conroller__icon-success, .form-conroller__icon-error {
   visibility: hidden;
   opacity: 0;
   position: absolute;
@@ -137,13 +118,34 @@ body {
   font-size: 20px;
   transition: 0.6s all;
 }
-.signup__form-success {
+.form-conroller__icon-success {
   color: #0e833b;
 }
-.signup__form-error {
+.form-conroller__icon-error {
   color: #912a10;
 }
-.signup__trigger {
+.form-conroller._success {
+  transition: 0.6s all;
+}
+.form-conroller._success .form-conroller__inp {
+  border-color: #0e833b;
+}
+.form-conroller._success .form-conroller__icon-success {
+  visibility: visible;
+  opacity: 1;
+}
+.form-conroller._error .form-conroller__inp {
+  border-color: #912a10;
+}
+.form-conroller._error .form-conroller__message {
+  visibility: visible;
+}
+.form-conroller._error .form-conroller__icon-error {
+  visibility: visible;
+  opacity: 1;
+}
+
+.trigger {
   position: absolute;
   top: 35px;
   right: 12px;
@@ -160,38 +162,39 @@ body {
   display: block;
   transition: 0.6s all;
 }
-.signup__trigger--pos-top {
-  top: 124px;
+.trigger--pos-top {
+  top: 108px;
 }
-.signup__trigger-show, .signup__trigger-hide {
+.trigger-show, .trigger-hide {
   color: #f9f9f9;
 }
-.signup__trigger._show .signup__trigger-show {
+.trigger._show .trigger-show {
   visibility: hidden;
   display: none;
 }
-.signup__trigger._show .signup__trigger-hide {
+.trigger._show .trigger-hide {
   visibility: visible;
   display: inline;
 }
-.signup__trigger._hide .signup__trigger-show {
+.trigger._hide .trigger-show {
   visibility: visible;
   display: inline;
 }
-.signup__trigger._hide .signup__trigger-hide {
+.trigger._hide .trigger-hide {
   visibility: hidden;
   display: none;
 }
-.signup .captcha {
+
+.captcha {
   margin-bottom: 0;
 }
-.signup .captcha__area {
+.captcha__area {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 56px;
 }
-.signup .captcha__area-inner {
+.captcha__area-inner {
   height: 100%;
   width: 100%;
   position: relative;
@@ -202,14 +205,14 @@ body {
   background-color: #111;
   border-radius: 8px;
 }
-.signup .captcha__area-img {
+.captcha__area-img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 8px;
 }
-.signup .captcha__area-text {
+.captcha__area-text {
   position: absolute;
   left: 2%;
   top: 8%;
@@ -222,44 +225,44 @@ body {
   letter-spacing: 0.56em;
   text-shadow: 0 0 2px #111;
 }
-.signup .captcha__reload-btn {
+.captcha__reload-btn {
   margin: 0 0 0 8px;
   padding: 6px;
   width: 64px;
   height: 100%;
   font-size: 24px;
 }
-.signup .captcha__reload-btn:hover {
+.captcha__reload-btn i {
+  transition: 0.6s all;
+}
+.captcha__reload-btn:hover {
   color: #f9f9f9;
   background-color: #655faf;
 }
-.signup .captcha__reload-btn i {
-  transition: 0.6s all;
+.captcha__reload-btn:hover i {
+  transform: rotate(45deg);
 }
-.signup .captcha__reload-btn i:hover {
-  transform: rotate(25deg);
-}
-.signup .captcha__form {
+.captcha__form {
   margin-top: 14px;
   position: relative;
 }
-.signup .captcha__form-inp._success {
+.captcha__form-inp._success {
   border-color: #0e833b;
 }
-.signup .captcha__form-inp._error {
+.captcha__form-inp._error {
   border-color: #912a10;
 }
-.signup .captcha__status {
+.captcha__status {
   display: block;
   overflow: hidden;
   opacity: 0;
 }
-.signup .captcha__status._success {
+.captcha__status._success {
   color: #0e833b;
   overflow: visible;
   opacity: 1;
 }
-.signup .captcha__status._error {
+.captcha__status._error {
   color: #912a10;
   overflow: visible;
   opacity: 1;

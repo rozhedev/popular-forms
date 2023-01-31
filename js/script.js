@@ -2,14 +2,14 @@
 
 const SIGNUP_NODES = {
     form: document.getElementById('signup-form'),
-    inputs: document.querySelectorAll('.signup__form-inp'),
+    inputs: document.querySelectorAll('.signup-form__inp'),
     fullname: document.getElementById('signup-fullname'),
     username: document.getElementById('signup-username'),
     email: document.getElementById('signup-email'),
     password: document.getElementById('signup-password'),
     repeatPassword: document.getElementById('signup-password2'),
     checkbox: document.getElementById('signup-checkbox'),
-    triggers: document.querySelectorAll('.signup__trigger'),        // * Buttons for view/hide password
+    triggers: document.querySelectorAll('.trigger'),        // * Buttons for view/hide password
 
     captchaText: document.getElementById('signup-captcha-text'),
     reloadBtn: document.getElementById('signup-reload-btn'),
@@ -19,7 +19,7 @@ const SIGNUP_NODES = {
 
 const LOGIN_NODES = {
     form: document.getElementById('login-form'),
-    inputs: document.querySelectorAll('.login__form-inp'),
+    inputs: document.querySelectorAll('.login-form__inp'),
     username: document.getElementById('login-username'),
     password: document.getElementById('login-password'),
     captchaText: document.getElementById('login-captcha-text'),
@@ -66,9 +66,6 @@ const VALID_INT = {
         min: 5,
         max: 20,
     },
-    pass: {
-        min: 8,
-    }
 }
 
 let validInterval = 5000;
@@ -125,9 +122,7 @@ function checkPassword(password) {
     const passwordValue = password.value.trim();
 
     if (passwordValue === '') setErrorFor(password, TEXT_ERRORS.blankPass);
-    else if (
-        !isPassword(passwordValue) && passwordValue.length < VALID_INT.pass.min
-    ) setErrorFor(password, TEXT_ERRORS.unsafePass);
+    else if (!isPassword(passwordValue) ) setErrorFor(password, TEXT_ERRORS.unsafePass);
     else setSuccessFor(password);
 }
 
@@ -291,8 +286,10 @@ SIGNUP_NODES.form.addEventListener('submit', function (e) {
 
 // * CALL FUNCTIONS IN LOGIN
 
+console.log(LOGIN_NODES.inputs);
 LOGIN_NODES.inputs.forEach(currentInputs => {
     currentInputs.addEventListener('input', function (e) {
+        console.log(1);
         e.preventDefault();
         e = e.currentTarget;
 

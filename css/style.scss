@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Zen+Antique&display=swap');
 
+// ! COPY STYLES FROM style.css
+
 $accent: #655faf;
 $errorRed: #912a10;
 $successGreen: #0e833b;
@@ -43,40 +45,14 @@ body {
     }
 }
 
-// * FORM CONTROL
+// * FORM
 
-.signup__form-control {
-    margin-bottom: 10px;
-    padding-bottom: 18px;
-    position: relative;
-
-    &._success {
-        transition: $transition;
-        .signup__form-inp {
-            border-color: $successGreen;
-        }
-        .signup__form-success {
-            visibility: visible;
-            opacity: 1;
-        }
-    }
-    &._error {
-        .signup__form-inp {
-            border-color: $errorRed;
-        }
-        .signup__form-message {
-            visibility: visible;
-        }
-        .signup__form-error {
-            visibility: visible;
-            opacity: 1;
-        }
-    }
+.form {
+    padding: 30px 40px;
+    max-width: 400px;
 }
 
-// * SIGNUP
-
-.signup {
+.form-wrapper {
     background-color: $light;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(17, 17, 17, 0.3);
@@ -90,215 +66,243 @@ body {
         background-color: #fff;
         padding: 20px 40px;
     }
+}
 
-    &__form {
-        padding: 30px 40px;
-        max-width: 700px;
+// * FORM CONTROLLER
 
-        // ? Transfer
-        &-label {
-            display: inline-block;
-            margin-bottom: 5px;
-        }
-        &-inp {
-            border: 2px solid #f0f0f0;
-            border-radius: 4px;
-            display: block;
-            font-family: inherit;
-            font-size: 14px;
-            padding: 10px;
-            width: 100%;
-            transition: $transition;
+.form-conroller {
+    margin-bottom: 10px;
+    padding-bottom: 18px;
+    position: relative;
 
-            &:focus {
-                outline: 0;
-                border-color: $accent;
-            }
-        }
-        &-message {
-            display: block;
-            font-size: 13px;
-            color: $errorRed;
-            position: absolute;
-            bottom: 0px;
-            left: 0;
-            visibility: hidden;
-        }
-        &-message.error {
-            visibility: visible;
-        }
-        &-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding: 8px 12px;
-            margin: 4px 0 12px;
-            font-size: 14px;
-            letter-spacing: 0.02em;
-            background-color: $accent;
-            color: $light;
-            border-radius: 8px;
-        }
-        &-icon {
-            font-size: 40px;
-            margin-right: 12px;
-        }
-        &-checkbox {
-            margin-right: 4px;
-        }
-        &-success,
-        &-error {
-            visibility: hidden;
-            opacity: 0;
-            position: absolute;
-            top: 38px;
-            right: 16px;
-            font-size: 20px;
-            transition: $transition;
-        }
-        &-success {
-            color: $successGreen;
-        }
-        &-error {
-            color: $errorRed;
-        }
+    &__label {
+        display: inline-block;
+        margin-bottom: 5px;
     }
-    &__trigger {
-        position: absolute;
-        top: 35px;
-        right: 12px;
-        min-width: 32px;
-        padding: 2px;
-        z-index: 5;
-
-        text-align: center;
-        font-size: 14px;
-        cursor: pointer;
-        background-color: $accent;
-        border: 2px solid $accent;
-        border-radius: 8px;
-        color: $light;
+    &__inp {
+        border: 2px solid #f0f0f0;
+        border-radius: 4px;
         display: block;
+        font-family: inherit;
+        font-size: 14px;
+        padding: 10px;
+        width: 100%;
         transition: $transition;
 
-        &--pos-top {
-            top: 124px;
+        &:focus {
+            outline: 0;
+            border-color: $accent;
         }
+    }
+    &__message {
+        display: block;
+        font-size: 13px;
+        color: $errorRed;
+        position: absolute;
+        bottom: 0px;
+        left: 0;
+        visibility: hidden;
+    }
+    &__message.error {
+        visibility: visible;
+    }
+    &__info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 8px 12px;
+        margin: 4px 0 12px;
+        font-size: 14px;
+        letter-spacing: 0.02em;
+        background-color: $accent;
+        color: $light;
+        border-radius: 8px;
+    }
+    &__icon-info {
+        font-size: 40px;
+        margin-right: 12px;
+    }
+    &__checkbox {
+        margin-right: 4px;
+    }
+    &__icon-success,
+    &__icon-error {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        top: 38px;
+        right: 16px;
+        font-size: 20px;
+        transition: $transition;
+    }
+    &__icon-success {
+        color: $successGreen;
+    }
+    &__icon-error {
+        color: $errorRed;
+    }
 
-        &-show,
-        &-hide {
+    &._success {
+        transition: $transition;
+        .form-conroller__inp {
+            border-color: $successGreen;
+        }
+        .form-conroller__icon-success {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+    &._error {
+        .form-conroller__inp {
+            border-color: $errorRed;
+        }
+        .form-conroller__message {
+            visibility: visible;
+        }
+        .form-conroller__icon-error {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+}
+
+// * TRIGGER
+
+.trigger {
+    position: absolute;
+    top: 35px;
+    right: 12px;
+    min-width: 32px;
+    padding: 2px;
+    z-index: 5;
+
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: $accent;
+    border: 2px solid $accent;
+    border-radius: 8px;
+    color: $light;
+    display: block;
+    transition: $transition;
+
+    &--pos-top {
+        top: 108px;
+    }
+
+    &-show,
+    &-hide {
+        color: $light;
+    }
+
+    &._show {
+        .trigger-show {
+            visibility: hidden;
+            display: none;
+        }
+        .trigger-hide {
+            visibility: visible;
+            display: inline;
+        }
+    }
+    &._hide {
+        .trigger-show {
+            visibility: visible;
+            display: inline;
+        }
+        .trigger-hide {
+            visibility: hidden;
+            display: none;
+        }
+    }
+}
+
+// * CAPTCHA
+
+.captcha {
+    margin-bottom: 0;
+
+    &__area {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 56px;
+
+        &-inner {
+            height: 100%;
+            width: 100%;
+            position: relative;
+            user-select: none;
+            // Background for captcha
+            background-color: $dark;
+            border-radius: 8px;
+        }
+        &-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        &-text {
+            position: absolute;
+            left: 2%;
+            top: 8%;
+            width: 100%;
             color: $light;
+            text-align: center;
+            font-size: 30px;
+            font-family: 'Zen Antique', serif;
+            font-style: italic;
+            letter-spacing: 0.56em;
+            text-shadow: 0 0 2px $dark;
         }
-
-        &._show {
-            .signup__trigger-show {
-                visibility: hidden;
-                display: none;
-            }
-            .signup__trigger-hide {
-                visibility: visible;
-                display: inline;
-            }
+    }
+    &__reload-btn {
+        margin: 0 0 0 8px;
+        padding: 6px;
+        width: 64px;
+        height: 100%;
+        font-size: 24px;
+        
+        i {
+            transition: $transition;
         }
-        &._hide {
-            .signup__trigger-show {
-                visibility: visible;
-                display: inline;
-            }
-            .signup__trigger-hide {
-                visibility: hidden;
-                display: none;
+        &:hover {
+            color: $light;
+            background-color: $accent;
+            i {
+                transform: rotate(45deg);
             }
         }
     }
+    &__form {
+        margin-top: 14px;
+        position: relative;
 
-    // * CAPTCHA
-
-    .captcha {
-        margin-bottom: 0;
-
-        &__area {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 56px;
-
-            &-inner {
-                height: 100%;
-                width: 100%;
-                position: relative;
-                user-select: none;
-                // Background for captcha
-                background-color: $dark;
-                border-radius: 8px;
-            }
-            &-img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                border-radius: 8px;
-            }
-            &-text {
-                position: absolute;
-                left: 2%;
-                top: 8%;
-                width: 100%;
-                color: $light;
-                text-align: center;
-                font-size: 30px;
-                font-family: 'Zen Antique', serif;
-                font-style: italic;
-                letter-spacing: 0.56em;
-                text-shadow: 0 0 2px $dark;
-            }
-        }
-        &__reload-btn {
-            margin: 0 0 0 8px;
-            padding: 6px;
-            width: 64px;
-            height: 100%;
-            font-size: 24px;
-
-            &:hover {
-                color: $light;
-                background-color: $accent;
-            }
-            i {
-                transition: $transition;
-                &:hover {
-                    transform: rotate(25deg);
-                }
-            }
-        }
-        &__form {
-            margin-top: 14px;
-            position: relative;
-
-            &-inp {
-                &._success {
-                    border-color: $successGreen;
-                }
-                &._error {
-                    border-color: $errorRed;
-                }
-            }
-        }
-        &__status {
-            display: block;
-            overflow: hidden;
-            opacity: 0;
-
+        &-inp {
             &._success {
-                color: $successGreen;
-                overflow: visible;
-                opacity: 1;
+                border-color: $successGreen;
             }
             &._error {
-                color: $errorRed;
-                overflow: visible;
-                opacity: 1;
+                border-color: $errorRed;
             }
+        }
+    }
+    &__status {
+        display: block;
+        overflow: hidden;
+        opacity: 0;
+
+        &._success {
+            color: $successGreen;
+            overflow: visible;
+            opacity: 1;
+        }
+        &._error {
+            color: $errorRed;
+            overflow: visible;
+            opacity: 1;
         }
     }
 }
