@@ -7,6 +7,7 @@ $errorRed: #912a10;
 $successGreen: #0e833b;
 $dark: #111;
 $light: #f9f9f9;
+$white: #fff;
 
 $transition: 0.6s all;
 
@@ -19,24 +20,26 @@ $transition: 0.6s all;
 }
 
 body {
+    min-height: 100vh;
     background-color: $accent;
     font-family: 'Open Sans', sans-serif;
-    min-height: 100vh;
 }
 
 .btn {
     display: block;
-    cursor: pointer;
-    background-color: $accent;
-    border: 2px solid $accent;
-    border-radius: 8px;
-    color: $light;
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+
     font-size: 16px;
     letter-spacing: 0.06em;
     font-weight: bold;
-    padding: 10px;
-    margin-top: 20px;
-    width: 100%;
+    color: $light;
+
+    background-color: $accent;
+    border: 2px solid $accent;
+    border-radius: 8px;
+    cursor: pointer;
     transition: $transition;
 
     &:hover {
@@ -47,25 +50,25 @@ body {
 
 // * FORM
 
-.form {
-    padding: 30px 40px;
-    max-width: 400px;
-}
-
-.form-wrapper {
-    background-color: $light;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(17, 17, 17, 0.3);
+.wrapper {
     overflow: hidden;
     width: 400px;
     max-width: 100%;
     margin: 40px auto;
+    background-color: $light;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(17, 17, 17, 0.3);
 
     &__header {
         border-bottom: 1px solid $dark;
-        background-color: #fff;
+        background-color: $white;
         padding: 20px 40px;
     }
+}
+
+.form {
+    max-width: 400px;
+    padding: 30px 40px;
 }
 
 .form-info {
@@ -103,13 +106,13 @@ body {
         margin-bottom: 5px;
     }
     &__inp {
+        display: block;
+        width: 100%;
+        padding: 10px;
         border: 2px solid #f0f0f0;
         border-radius: 4px;
-        display: block;
         font-family: inherit;
         font-size: 14px;
-        padding: 10px;
-        width: 100%;
         transition: $transition;
 
         &:focus {
@@ -118,13 +121,13 @@ body {
         }
     }
     &__message {
+        visibility: hidden;
         display: block;
-        font-size: 13px;
-        color: $errorRed;
         position: absolute;
         bottom: 0px;
         left: 0;
-        visibility: hidden;
+        font-size: 13px;
+        color: $errorRed;
     }
     &__message.error {
         visibility: visible;
@@ -167,6 +170,9 @@ body {
             visibility: visible;
             opacity: 1;
         }
+        .radio__label::before, .checkbox__label::before {
+            border-color: $errorRed;
+        }
     }
 }
 
@@ -180,6 +186,7 @@ body {
     padding: 2px;
     z-index: 5;
 
+    display: block;
     text-align: center;
     font-size: 14px;
     cursor: pointer;
@@ -187,7 +194,6 @@ body {
     border: 2px solid $accent;
     border-radius: 8px;
     color: $light;
-    display: block;
     transition: $transition;
 
     &-show,
@@ -229,31 +235,22 @@ body {
         height: 56px;
 
         &-inner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100%;
             width: 100%;
-            position: relative;
             user-select: none;
-            // Background for captcha
-            background-color: $dark;
             border-radius: 8px;
-        }
-        &-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
+            // * Background for captcha
+            background-image: linear-gradient(to right, $accent, $dark, $errorRed, $successGreen);
         }
         &-text {
-            position: absolute;
-            left: 2%;
-            top: 8%;
-            width: 100%;
-            color: $light;
-            text-align: center;
             font-size: 30px;
             font-family: 'Zen Antique', serif;
             font-style: italic;
-            letter-spacing: 0.56em;
+            letter-spacing: 0.5em;
+            color: $light;
             text-shadow: 0 0 2px $dark;
         }
     }
@@ -276,8 +273,8 @@ body {
         }
     }
     &__form {
-        margin-top: 14px;
         position: relative;
+        margin-top: 14px;
 
         &-inp {
             &._success {
@@ -289,19 +286,19 @@ body {
         }
     }
     &__status {
-        display: block;
         overflow: hidden;
         opacity: 0;
+        display: block;
 
         &._success {
-            color: $successGreen;
             overflow: visible;
             opacity: 1;
+            color: $successGreen;
         }
         &._error {
-            color: $errorRed;
             overflow: visible;
             opacity: 1;
+            color: $errorRed;
         }
     }
 }
@@ -348,12 +345,12 @@ body {
         }
         &::after {
             content: '\2713';
+            opacity: 0;
             position: absolute;
             left: 3px;
             top: 0px;
             z-index: 2;
 
-            opacity: 0;
             width: 12px;
             height: 12px;
             background-size: 12px 12px;
@@ -373,47 +370,46 @@ body {
     -moz-appearance: none;
     -ms-appearance: none;
     appearance: none;
+    position: absolute;
     width: 16px;
     height: 16px;
-    position: absolute;
 }
 
 .radio__label {
     padding-left: 1.8rem;
+    font-size: 1rem;
     line-height: 1.2;
     vertical-align: top;
-    font-size: 1rem;
+    cursor: pointer;
 }
 
 .radio__label:before {
     content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
     display: block;
     width: 16px;
     height: 16px;
 
     border: 1px solid $dark;
     border-radius: 50%;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
 }
 
 .radio__label:after {
     content: '';
+    opacity: 0;
+    position: absolute;
+    top: 3.2px;
+    left: 3.2px;
+    z-index: 2;
     display: block;
     width: 12px;
     height: 12px;
 
     background-color: $accent;
     border-radius: 50%;
-    opacity: 0;
-
-    position: absolute;
-    top: 3.2px;
-    left: 3.2px;
-    z-index: 2;
 }
 
 .radio__input:checked + .radio__label:before {

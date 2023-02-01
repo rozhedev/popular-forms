@@ -10,7 +10,7 @@ const SIGNUP_NODES = {
     repeatPassword: document.getElementById('signup-password2'),
     triggers: document.querySelectorAll('.trigger'),        // * Buttons for view/hide password
 
-    radioList: document.querySelectorAll('.radio__input'),
+    radioInputs: document.querySelectorAll('.radio__input'),
     captchaText: document.getElementById('signup-captcha-text'),
     reloadBtn: document.getElementById('signup-reload-btn'),
     captchaInp: document.getElementById('signup-captcha-inp'),
@@ -132,7 +132,7 @@ function comparePassword(password, repeatPassword) {
     const passwordValue = password.value.trim();
     const repeatPasswordValue = repeatPassword.value.trim();
 
-    if (passwordValue == '') setErrorFor(repeatPassword, TEXT_ERRORS.blankRepeatPass);
+    if (repeatPasswordValue == '') setErrorFor(repeatPassword, TEXT_ERRORS.blankRepeatPass);
     else if (passwordValue !== repeatPasswordValue) setErrorFor(repeatPassword, TEXT_ERRORS.passNotMatch);
     else setSuccessFor(repeatPassword);
 }
@@ -191,17 +191,17 @@ function isChecked(checkbox) {
     else setSuccessFor(checkbox);
 }
 
-function isCheckedRadio(nodeList) {
-    if (nodeList.length < 0) return;
+function isCheckedRadio(inpList) {
+    if (inpList.length < 0) return;
     else {
-        for (const item of nodeList) {
-            console.log(item.checked);
-            
-            if (item.checked == true) {
-                setSuccessFor(item);
+        for (const inpItem of inpList) {
+            if (inpItem.checked == true) {
+                for (const item of inpList) {
+                    setSuccessFor(item);
+                }
                 return;
             } else {
-                setErrorFor(item, TEXT_ERRORS.notCheckedRadio);
+                setErrorFor(inpItem, TEXT_ERRORS.notCheckedRadio);
             }
         }
     }
@@ -284,7 +284,7 @@ SIGNUP_NODES.reloadBtn.addEventListener('click', (e) => {
 
 SIGNUP_NODES.captchaInp.addEventListener('input', function () {
     setTimeout(() => {
-        checkCaptcha(SIGNUP_NODES.captchaInp, SIGNUP_NODES.captchaText, SIGNUP_NODES.captchaErr);
+        checkCaptcha(this, SIGNUP_NODES.captchaText, SIGNUP_NODES.captchaErr);
     }, validDelay);
 });
 
@@ -299,7 +299,7 @@ SIGNUP_NODES.form.addEventListener('submit', function (e) {
     checkPassword(SIGNUP_NODES.password);
     comparePassword(SIGNUP_NODES.password, SIGNUP_NODES.repeatPassword);
     checkCaptcha(SIGNUP_NODES.captchaInp, SIGNUP_NODES.captchaText, SIGNUP_NODES.captchaErr);
-    isCheckedRadio(SIGNUP_NODES.radioList);
+    isCheckedRadio(SIGNUP_NODES.radioInputs);
     isChecked(SIGNUP_NODES.checkbox);
 })
 
@@ -334,7 +334,7 @@ LOGIN_NODES.reloadBtn.addEventListener('click', (e) => {
 
 LOGIN_NODES.captchaInp.addEventListener('input', function () {
     setTimeout(() => {
-        checkCaptcha(LOGIN_NODES.captchaInp, LOGIN_NODES.captchaText, LOGIN_NODES.captchaErr);
+        checkCaptcha(this, LOGIN_NODES.captchaText, LOGIN_NODES.captchaErr);
     }, validDelay);
 });
 
@@ -355,7 +355,7 @@ RESET_NODES.email.addEventListener('input', function (e) {
     e = e.currentTarget;
 
     setTimeout(() => {
-        checkEmail(RESET_NODES.email);
+        checkEmail(this);
     }, validDelay);
 });
 

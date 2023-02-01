@@ -9,24 +9,24 @@
 }
 
 body {
+  min-height: 100vh;
   background-color: #655faf;
   font-family: "Open Sans", sans-serif;
-  min-height: 100vh;
 }
 
 .btn {
   display: block;
-  cursor: pointer;
-  background-color: #655faf;
-  border: 2px solid #655faf;
-  border-radius: 8px;
-  color: #f9f9f9;
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
   font-size: 16px;
   letter-spacing: 0.06em;
   font-weight: bold;
-  padding: 10px;
-  margin-top: 20px;
-  width: 100%;
+  color: #f9f9f9;
+  background-color: #655faf;
+  border: 2px solid #655faf;
+  border-radius: 8px;
+  cursor: pointer;
   transition: 0.6s all;
 }
 .btn:hover {
@@ -34,24 +34,24 @@ body {
   color: #655faf;
 }
 
-.form {
-  padding: 30px 40px;
-  max-width: 400px;
-}
-
-.form-wrapper {
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(17, 17, 17, 0.3);
+.wrapper {
   overflow: hidden;
   width: 400px;
   max-width: 100%;
   margin: 40px auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(17, 17, 17, 0.3);
 }
-.form-wrapper__header {
+.wrapper__header {
   border-bottom: 1px solid #111;
   background-color: #fff;
   padding: 20px 40px;
+}
+
+.form {
+  max-width: 400px;
+  padding: 30px 40px;
 }
 
 .form-info {
@@ -86,13 +86,13 @@ body {
   margin-bottom: 5px;
 }
 .form-conroller__inp {
+  display: block;
+  width: 100%;
+  padding: 10px;
   border: 2px solid #f0f0f0;
   border-radius: 4px;
-  display: block;
   font-family: inherit;
   font-size: 14px;
-  padding: 10px;
-  width: 100%;
   transition: 0.6s all;
 }
 .form-conroller__inp:focus {
@@ -100,13 +100,13 @@ body {
   border-color: #655faf;
 }
 .form-conroller__message {
+  visibility: hidden;
   display: block;
-  font-size: 13px;
-  color: #912a10;
   position: absolute;
   bottom: 0px;
   left: 0;
-  visibility: hidden;
+  font-size: 13px;
+  color: #912a10;
 }
 .form-conroller__message.error {
   visibility: visible;
@@ -146,6 +146,9 @@ body {
   visibility: visible;
   opacity: 1;
 }
+.form-conroller._error .radio__label::before, .form-conroller._error .checkbox__label::before {
+  border-color: #912a10;
+}
 
 .trigger {
   position: absolute;
@@ -154,6 +157,7 @@ body {
   min-width: 32px;
   padding: 2px;
   z-index: 5;
+  display: block;
   text-align: center;
   font-size: 14px;
   cursor: pointer;
@@ -161,7 +165,6 @@ body {
   border: 2px solid #655faf;
   border-radius: 8px;
   color: #f9f9f9;
-  display: block;
   transition: 0.6s all;
 }
 .trigger-show, .trigger-hide {
@@ -194,34 +197,24 @@ body {
   height: 56px;
 }
 .captcha__area-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   width: 100%;
-  position: relative;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  background-color: #111;
   border-radius: 8px;
-}
-.captcha__area-img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  border-radius: 8px;
+  background-image: linear-gradient(to right, #655faf, #111, #912a10, #0e833b);
 }
 .captcha__area-text {
-  position: absolute;
-  left: 2%;
-  top: 8%;
-  width: 100%;
-  color: #f9f9f9;
-  text-align: center;
   font-size: 30px;
   font-family: "Zen Antique", serif;
   font-style: italic;
-  letter-spacing: 0.56em;
+  letter-spacing: 0.5em;
+  color: #f9f9f9;
   text-shadow: 0 0 2px #111;
 }
 .captcha__reload-btn {
@@ -242,8 +235,8 @@ body {
   transform: rotate(45deg);
 }
 .captcha__form {
-  margin-top: 14px;
   position: relative;
+  margin-top: 14px;
 }
 .captcha__form-inp._success {
   border-color: #0e833b;
@@ -252,19 +245,19 @@ body {
   border-color: #912a10;
 }
 .captcha__status {
-  display: block;
   overflow: hidden;
   opacity: 0;
+  display: block;
 }
 .captcha__status._success {
-  color: #0e833b;
   overflow: visible;
   opacity: 1;
+  color: #0e833b;
 }
 .captcha__status._error {
-  color: #912a10;
   overflow: visible;
   opacity: 1;
+  color: #912a10;
 }
 
 .checkbox {
@@ -304,11 +297,11 @@ body {
 }
 .checkbox__label::after {
   content: "✓";
+  opacity: 0;
   position: absolute;
   left: 3px;
   top: 0px;
   z-index: 2;
-  opacity: 0;
   width: 12px;
   height: 12px;
   background-size: 12px 12px;
@@ -323,43 +316,44 @@ body {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  position: absolute;
   width: 16px;
   height: 16px;
-  position: absolute;
 }
 
 .radio__label {
   padding-left: 1.8rem;
+  font-size: 1rem;
   line-height: 1.2;
   vertical-align: top;
-  font-size: 1rem;
+  cursor: pointer;
 }
 
 .radio__label:before {
   content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
   display: block;
   width: 16px;
   height: 16px;
   border: 1px solid #111;
   border-radius: 50%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
 }
 
 .radio__label:after {
   content: "";
-  display: block;
-  width: 12px;
-  height: 12px;
-  background-color: #655faf;
-  border-radius: 50%;
   opacity: 0;
   position: absolute;
   top: 3.2px;
   left: 3.2px;
   z-index: 2;
+  display: block;
+  width: 12px;
+  height: 12px;
+  background-color: #655faf;
+  border-radius: 50%;
 }
 
 .radio__input:checked + .radio__label:before {
