@@ -34,7 +34,7 @@ body {
   color: #655faf;
 }
 
-.wrapper {
+.form-wrapper {
   overflow: hidden;
   width: 400px;
   max-width: 100%;
@@ -43,7 +43,7 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(17, 17, 17, 0.3);
 }
-.wrapper__header {
+.form-wrapper__header {
   border-bottom: 1px solid #111;
   background-color: #fff;
   padding: 20px 40px;
